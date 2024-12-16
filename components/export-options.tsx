@@ -1,14 +1,18 @@
 'use client'
 
 import { useState } from 'react'
+import { DateRange } from 'react-day-picker'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { DatePickerWithRange } from '@/components/date-range-picker'
 
 export function ExportOptions() {
-  const [dateRange, setDateRange] = useState({ from: new Date(), to: new Date() })
-  const [format, setFormat] = useState('excel')
+  const [dateRange, setDateRange] = useState<DateRange | undefined>({
+    from: new Date(),
+    to: new Date()
+  })
+  const [format, setFormat] = useState<string>('csv')
 
   const handleExport = () => {
     console.log('Exporting data:', { dateRange, format })
