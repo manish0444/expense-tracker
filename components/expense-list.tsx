@@ -14,7 +14,7 @@ const mockExpenses = [
 ]
 
 export function ExpenseList() {
-  const [expenses, setExpenses] = useState(mockExpenses)
+  const [expenses] = useState(mockExpenses)
   const [searchTerm, setSearchTerm] = useState('')
 
   const filteredExpenses = expenses.filter(expense =>

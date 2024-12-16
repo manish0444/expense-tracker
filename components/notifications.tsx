@@ -20,7 +20,7 @@ const mockNotifications = [
 ]
 
 export function Notifications() {
-  const [notifications, setNotifications] = useState(mockNotifications)
+  const [notifications] = useState(mockNotifications)
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
