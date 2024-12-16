@@ -1,6 +1,6 @@
 import { getServerSession } from 'next-auth/next'
 import { redirect } from 'next/navigation'
-import { authOptions } from '../api/auth/[...nextauth]/route'
+import { authOptions } from '../api/auth/auth.config'
 import { DashboardHeader } from '@/components/dashboard-header'
 import { ExpenseEntry } from '@/components/expense-entry'
 import { ExpenseList } from '@/components/expense-list'

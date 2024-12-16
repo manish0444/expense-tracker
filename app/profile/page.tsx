@@ -1,6 +1,6 @@
 import { getServerSession } from 'next-auth/next'
 import { redirect } from 'next/navigation'
-import { authOptions } from '../api/auth/[...nextauth]/route'
+import { authOptions } from '../api/auth/auth.config'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
