@@ -3,8 +3,10 @@
 import { useEffect, useState } from 'react'
 import Shepherd from 'shepherd.js'
 
+type Tour = InstanceType<typeof Shepherd.Tour>
+
 export function ProductTour() {
-  const [tour, setTour] = useState<Shepherd.Tour | null>(null)
+  const [tour, setTour] = useState<Tour | null>(null)
 
   useEffect(() => {
     const newTour = new Shepherd.Tour({
