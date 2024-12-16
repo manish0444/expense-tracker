@@ -1,14 +1,13 @@
 import { HeroSection } from '@/components/landing/hero-section'
 import { FeaturesSection } from '@/components/landing/features-section'
 import { ProcessSection } from '@/components/landing/process-section'
-import { DemoSection } from '@/components/landing/demo-section'
-import { TestimonialsSection } from '@/components/landing/testimonials-section'
-import { SocialProofSection } from '@/components/landing/social-proof-section'
-import { FAQSection } from '@/components/landing/faq-section'
-import { BlogSection } from '@/components/landing/blog-section'
+
 import { Footer } from '@/components/landing/footer'
-import { ProductTour } from '@/components/product-tour'
+
 import { LiveChat } from '@/components/live-chat'
+import { IntegrationSection } from '@/components/landing/integration-section'
+import { WorkflowSection } from '@/components/landing/workflow-section'
+import { StatsSection } from '@/components/landing/stats-section'
 
 export default function LandingPage() {
   return (
@@ -17,14 +16,12 @@ export default function LandingPage() {
         <HeroSection />
         <FeaturesSection />
         <ProcessSection />
-        <DemoSection />
-        <TestimonialsSection />
-        <SocialProofSection />
-        <FAQSection />
-        <BlogSection />
+        <IntegrationSection />
+       <WorkflowSection/>
+       <StatsSection/>
       </main>
       <Footer />
-      <ProductTour />
+    
       <LiveChat />
     </div>
   )

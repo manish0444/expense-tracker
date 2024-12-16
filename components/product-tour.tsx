@@ -1,154 +1,186 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Shepherd from 'shepherd.js'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Button } from '@/components/ui/button'
+import { X, ChevronRight, ChevronLeft } from 'lucide-react'
 
-type Tour = InstanceType<typeof Shepherd.Tour>
+interface TourStep {
+  target: string
+  title: string
+  content: string
+  placement: 'top' | 'right' | 'bottom' | 'left'
+}
+
+const tourSteps: TourStep[] = [
+  {
+    target: '#features',
+    title: 'Smart Features',
+    content: 'Explore our AI-powered features that help you manage expenses better.',
+    placement: 'bottom'
+  },
+  {
+    target: '#analytics',
+    title: 'Advanced Analytics',
+    content: 'Get detailed insights into your spending patterns.',
+    placement: 'left'
+  },
+  {
+    target: '#budget',
+    title: 'Budget Tracking',
+    content: 'Set and monitor your budgets with real-time alerts.',
+    placement: 'right'
+  }
+]
 
 export function ProductTour() {
-  const [tour, setTour] = useState<Tour | null>(null)
+  const [isVisible, setIsVisible] = useState(false)
+  const [currentStep, setCurrentStep] = useState(0)
+  const [position, setPosition] = useState({ top: 0, left: 0 })
 
   useEffect(() => {
-    const newTour = new Shepherd.Tour({
-      defaultStepOptions: {
-        cancelIcon: {
-          enabled: true
-        },
-        classes: 'shadow-md bg-background',
-        scrollTo: { behavior: 'smooth', block: 'center' }
-      }
-    })
-
-    newTour.addStep({
-      id: 'welcome',
-      text: 'Welcome to ExpenseTracker! Let\'s take a quick tour of our key features.',
-      attachTo: {
-        element: '.hero-section',
-        on: 'bottom'
-      },
-      buttons: [
-        {
-          text: 'Next',
-          action: newTour.next
-        }
-      ]
-    })
-
-    newTour.addStep({
-      id: 'expense-tracking',
-      text: 'Easily log and categorize your expenses in real-time. Our intuitive interface makes expense tracking a breeze.',
-      attachTo: {
-        element: '#expense-tracking',
-        on: 'bottom'
-      },
-      buttons: [
-        {
-          text: 'Back',
-          action: newTour.back
-        },
-        {
-          text: 'Next',
-          action: newTour.next
-        }
-      ]
-    })
-
-    newTour.addStep({
-      id: 'analytics',
-      text: 'Get powerful insights with our advanced analytics. Visualize your spending patterns and make informed financial decisions.',
-      attachTo: {
-        element: '#analytics',
-        on: 'top'
-      },
-      buttons: [
-        {
-          text: 'Back',
-          action: newTour.back
-        },
-        {
-          text: 'Next',
-          action: newTour.next
-        }
-      ]
-    })
-
-    newTour.addStep({
-      id: 'budgeting',
-      text: 'Set and manage budgets to reach your financial goals. Our budgeting tools help you stay on track and avoid overspending.',
-      attachTo: {
-        element: '#budgeting',
-        on: 'bottom'
-      },
-      buttons: [
-        {
-          text: 'Back',
-          action: newTour.back
-        },
-        {
-          text: 'Next',
-          action: newTour.next
-        }
-      ]
-    })
-
-    newTour.addStep({
-      id: 'reports',
-      text: 'Generate detailed reports to get a comprehensive view of your finances. Export your data in various formats for further analysis.',
-      attachTo: {
-        element: '#reports',
-        on: 'top'
-      },
-      buttons: [
-        {
-          text: 'Back',
-          action: newTour.back
-        },
-        {
-          text: 'Next',
-          action: newTour.next
-        }
-      ]
-    })
-
-    newTour.addStep({
-      id: 'cta',
-      text: 'Ready to take control of your finances? Sign up now and start your journey to financial freedom!',
-      attachTo: {
-        element: '.cta-button',
-        on: 'bottom'
-      },
-      buttons: [
-        {
-          text: 'Back',
-          action: newTour.back
-        },
-        {
-          text: 'Finish',
-          action: newTour.complete
-        }
-      ]
-    })
-
-    setTour(newTour)
-
-    return () => {
-      newTour.complete()
+    const hasSeenTour = localStorage.getItem('hasSeenTour')
+    if (!hasSeenTour) {
+      setIsVisible(true)
     }
   }, [])
 
-  const startTour = () => {
-    if (tour) {
-      tour.start()
+  useEffect(() => {
+    if (isVisible) {
+      const target = document.querySelector(tourSteps[currentStep].target)
+      if (target) {
+        const rect = target.getBoundingClientRect()
+        const { placement } = tourSteps[currentStep]
+        
+        let top = rect.top + window.scrollY
+        let left = rect.left
+
+        switch (placement) {
+          case 'top':
+            top -= 120
+            left += rect.width / 2 - 150
+            break
+          case 'right':
+            top += rect.height / 2 - 60
+            left += rect.width + 20
+            break
+          case 'bottom':
+            top += rect.height + 20
+            left += rect.width / 2 - 150
+            break
+          case 'left':
+            top += rect.height / 2 - 60
+            left -= 320
+            break
+        }
+
+        setPosition({ top, left })
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }
+    }
+  }, [currentStep, isVisible])
+
+  const handleNext = () => {
+    if (currentStep < tourSteps.length - 1) {
+      setCurrentStep(prev => prev + 1)
+    } else {
+      handleClose()
     }
   }
 
+  const handlePrev = () => {
+    if (currentStep > 0) {
+      setCurrentStep(prev => prev - 1)
+    }
+  }
+
+  const handleClose = () => {
+    setIsVisible(false)
+    localStorage.setItem('hasSeenTour', 'true')
+  }
+
   return (
-    <button
-      onClick={startTour}
-      className="fixed bottom-4 right-4 bg-primary text-primary-foreground px-6 py-3 rounded-full shadow-lg hover:bg-primary/90 transition-colors text-lg font-semibold"
-    >
-      Take a Tour
-    </button>
+    <AnimatePresence>
+      {isVisible && (
+        <>
+          {/* Overlay */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 z-50"
+            onClick={handleClose}
+          />
+
+          {/* Tour Card */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ 
+              opacity: 1, 
+              scale: 1,
+              top: position.top,
+              left: position.left 
+            }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            className="fixed z-50 w-[300px] bg-background rounded-lg shadow-lg border"
+            style={{ top: position.top, left: position.left }}
+          >
+            {/* Close Button */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="absolute top-2 right-2"
+              onClick={handleClose}
+            >
+              <X className="h-4 w-4" />
+            </Button>
+
+            {/* Content */}
+            <div className="p-6">
+              <h3 className="text-lg font-semibold mb-2">
+                {tourSteps[currentStep].title}
+              </h3>
+              <p className="text-muted-foreground mb-4">
+                {tourSteps[currentStep].content}
+              </p>
+
+              {/* Navigation */}
+              <div className="flex items-center justify-between">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handlePrev}
+                  disabled={currentStep === 0}
+                >
+                  <ChevronLeft className="h-4 w-4 mr-1" />
+                  Previous
+                </Button>
+                <span className="text-sm text-muted-foreground">
+                  {currentStep + 1} / {tourSteps.length}
+                </span>
+                <Button
+                  size="sm"
+                  onClick={handleNext}
+                >
+                  {currentStep === tourSteps.length - 1 ? 'Finish' : 'Next'}
+                  <ChevronRight className="h-4 w-4 ml-1" />
+                </Button>
+              </div>
+            </div>
+
+            {/* Arrow */}
+            <div
+              className={`absolute w-4 h-4 bg-background border transform rotate-45 ${
+                tourSteps[currentStep].placement === 'top' ? 'bottom-[-8px] left-1/2 -translate-x-1/2 border-b border-r' :
+                tourSteps[currentStep].placement === 'right' ? 'left-[-8px] top-1/2 -translate-y-1/2 border-l border-b' :
+                tourSteps[currentStep].placement === 'bottom' ? 'top-[-8px] left-1/2 -translate-x-1/2 border-t border-l' :
+                'right-[-8px] top-1/2 -translate-y-1/2 border-t border-r'
+              }`}
+            />
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
   )
 }
 

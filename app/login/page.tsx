@@ -1,10 +1,10 @@
 'use client'
 
-import { signIn, useSession } from 'next-auth/react'
 import { useEffect } from 'react'
+import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import { Button } from '@/components/ui/button'
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
+import { motion } from 'framer-motion'
+import { LoginCard } from '@/components/auth/login-card'
 
 export default function LoginPage() {
   const { data: session, status } = useSession()
@@ -16,35 +16,75 @@ export default function LoginPage() {
     }
   }, [session, router])
 
-  const handleSignIn = async () => {
-    try {
-      await signIn('google', { callbackUrl: '/dashboard' })
-    } catch (error) {
-      console.error('Sign in error:', error)
-    }
-  }
-
   if (status === 'loading') {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
       </div>
     )
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-background">
-      <Card className="w-[350px]">
-        <CardHeader>
-          <CardTitle>Welcome to Expense Tracker</CardTitle>
-          <CardDescription>Sign in to manage your expenses</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Button onClick={handleSignIn} className="w-full">
-            Sign in with Google
-          </Button>
-        </CardContent>
-      </Card>
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-b from-background to-background/50">
+      {/* Background Effects */}
+      <div className="absolute inset-0 bg-grid-white/5 mask-gradient" />
+      <motion.div 
+        className="absolute top-0 -left-48 w-96 h-96 bg-primary/30 rounded-full mix-blend-multiply filter blur-[128px] opacity-50"
+        animate={{ 
+          y: [0, 50, 0],
+          rotate: [0, 45, 0]
+        }}
+        transition={{ 
+          duration: 10,
+          repeat: Infinity,
+          ease: "linear"
+        }}
+      />
+      <motion.div 
+        className="absolute bottom-0 -right-48 w-96 h-96 bg-purple-500/30 rounded-full mix-blend-multiply filter blur-[128px] opacity-50"
+        animate={{ 
+          y: [0, -50, 0],
+          rotate: [0, -45, 0]
+        }}
+        transition={{ 
+          duration: 10,
+          repeat: Infinity,
+          ease: "linear"
+        }}
+      />
+
+      {/* Content */}
+      <div className="relative z-10 w-full max-w-md px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-8"
+        >
+          <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-600">
+            ExpenseTracker
+          </h1>
+        </motion.div>
+
+        <LoginCard />
+
+        {/* Additional Info */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+          className="text-center mt-8 text-sm text-muted-foreground"
+        >
+          By signing in, you agree to our{' '}
+          <a href="/terms" className="underline hover:text-primary">
+            Terms of Service
+          </a>{' '}
+          and{' '}
+          <a href="/privacy" className="underline hover:text-primary">
+            Privacy Policy
+          </a>
+        </motion.div>
+      </div>
     </div>
   )
 }
