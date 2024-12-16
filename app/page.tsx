@@ -8,6 +8,7 @@ import { LiveChat } from '@/components/live-chat'
 import { IntegrationSection } from '@/components/landing/integration-section'
 import { WorkflowSection } from '@/components/landing/workflow-section'
 import { StatsSection } from '@/components/landing/stats-section'
+import { ShowcaseSection } from '@/components/landing/showcase-section'
 
 export default function LandingPage() {
   return (
@@ -17,11 +18,11 @@ export default function LandingPage() {
         <FeaturesSection />
         <ProcessSection />
         <IntegrationSection />
-       <WorkflowSection/>
-       <StatsSection/>
+        <WorkflowSection />
+        <StatsSection />
+        <ShowcaseSection />
       </main>
       <Footer />
-    
       <LiveChat />
     </div>
   )
