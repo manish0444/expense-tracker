@@ -11,15 +11,15 @@ import { ModeToggle } from '@/components/mode-toggle'
 const mainNavItems = [
   { 
     name: 'Features', 
-    href: '#features',
+    href: '/features',
     items: [
-      { name: 'AI Assistant', href: '#ai-features' },
-      { name: 'Analytics', href: '#analytics' },
-      { name: 'Budget Tracking', href: '#budget' },
+      { name: 'AI Assistant', href: '/ai-features' },
+      { name: 'Analytics', href: '/analytics' },
+      { name: 'Budget Tracking', href: '/budget' },
     ]
   },
-  { name: 'Pricing', href: '#pricing' },
-  { name: 'Contact', href: '#contact' },
+  { name: 'Pricing', href: '/pricing' },
+  { name: 'Contact', href: '/contact' },
 ]
 
 export function Header() {
