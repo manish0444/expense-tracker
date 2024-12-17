@@ -157,7 +157,7 @@ export function Header() {
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/dashboard/profile" className="cursor-pointer">
+                    <Link href="/dashboard/settings" className="cursor-pointer">
                       <User className="w-4 h-4 mr-2" />
                       Profile
                     </Link>
@@ -283,7 +283,7 @@ export function Header() {
                     <Link href="/login">Sign In</Link>
                   </Button>
                   <Button asChild className="w-full">
-                    <Link href="/signup">Get Started</Link>
+                    <Link href="/login">Get Started</Link>
                   </Button>
                 </div>
               )}
