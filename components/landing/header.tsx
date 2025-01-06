@@ -103,7 +103,8 @@ export function Header() {
             <ModeToggle />
             {session ? (
               <Button asChild className="bg-primary hover:bg-primary/90">
-                <Link href="/dashboard">Dashboard</Link>
+                <Link href="/dashboard" className="cursor-pointer">
+
               </Button>
             ) : (
               <div className="flex items-center space-x-4">
@@ -111,7 +112,7 @@ export function Header() {
                   <Link href="/login">Sign In</Link>
                 </Button>
                 <Button asChild className="bg-primary hover:bg-primary/90">
-                  <Link href="/signup">Get Started</Link>
+                  <Link href="/login">Get Started</Link>
                 </Button>
               </div>
             )}
@@ -179,7 +180,7 @@ export function Header() {
               ))}
               {session ? (
                 <Button asChild className="w-full bg-primary hover:bg-primary/90">
-                  <Link href="/dashboard">Dashboard</Link>
+                <Link href="/dashboard" className="cursor-pointer">
                 </Button>
               ) : (
                 <div className="space-y-2">
@@ -187,7 +188,7 @@ export function Header() {
                     <Link href="/login">Sign In</Link>
                   </Button>
                   <Button asChild className="w-full bg-primary hover:bg-primary/90">
-                    <Link href="/signup">Get Started</Link>
+                    <Link href="/login">Get Started</Link>
                   </Button>
                 </div>
               )}
