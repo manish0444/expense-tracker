@@ -180,7 +180,7 @@ export function Header() {
               ))}
               {session ? (
                 <Button asChild className="w-full bg-primary hover:bg-primary/90">
-                <Link href="/dashboard" className="cursor-pointer">
+                 <Link href="/dashboard" className="cursor-pointer">Dashboard</Link>
                 </Button>
               ) : (
                 <div className="space-y-2">
