@@ -151,19 +151,19 @@ export function Header() {
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
-                    <Link href="/dashboard" className="cursor-pointer">
+                    <Link href="/dashboard" >
                       <LayoutDashboard className="w-4 h-4 mr-2" />
                       Dashboard
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/dashboard/settings" className="cursor-pointer">
+                    <Link href="/dashboard/settings" >
                       <User className="w-4 h-4 mr-2" />
                       Profile
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/dashboard/settings" className="cursor-pointer">
+                    <Link href="/dashboard/settings">
                       <Settings className="w-4 h-4 mr-2" />
                       Settings
                     </Link>
@@ -184,7 +184,7 @@ export function Header() {
                   <Link href="/login">Sign In</Link>
                 </Button>
                 <Button asChild className="bg-primary hover:bg-primary/90">
-                  <Link href="/signup">Get Started</Link>
+                  <Link href="/login">Get Started</Link>
                 </Button>
               </div>
             )}
