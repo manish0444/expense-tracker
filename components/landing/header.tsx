@@ -103,7 +103,7 @@ export function Header() {
             <ModeToggle />
             {session ? (
               <Button asChild className="bg-primary hover:bg-primary/90">
-                <Link href="/dashboard" className="cursor-pointer">
+                 <Link href="/dashboard" className="cursor-pointer">Dashboard</Link>
 
               </Button>
             ) : (
